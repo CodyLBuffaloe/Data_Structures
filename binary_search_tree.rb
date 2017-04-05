@@ -10,6 +10,11 @@ end
 
 #Takes an array of data, turns it into binary tree of Node objects, in appropriate order
 def build_tree(data)
+  data.each do |value|
+    value = Node.new(value)
+  end
+  puts data
+  puts data[1].class
 end
 
 #Searches the tree for a target value, returns the node at which value is located
