@@ -10,8 +10,8 @@ end
 
 #Takes an array of data, turns it into binary tree of Node objects, in appropriate order
 def build_tree(data)
-  data.each do |value|
-    value = Node.new(value)
+  data.each_with_index do |value, index|
+    data[index] = Node.new(value)
   end
   puts data
   puts data[1].class
