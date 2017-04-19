@@ -13,12 +13,10 @@ class Binary_Tree
 #Takes an array of data, turns it into binary tree of Node objects, in appropriate order
   def build_tree(data)
     @root = Node.new(data[0])
-    data.each_with_index do |element, index|
-      if(index == 0)
-        next
-      end
+    data.each do |element|
       create_node(element)
     end
+
   end
 
   def create_node(element, node = @root)
@@ -60,7 +58,7 @@ class Binary_Tree
 #Searches the tree for a target value, returns node at which value is located
   def depth_first_search(value, node = @root)
     if(node == value)
-      return node
+      puts node
     end
     if(node.left_node)
       depth_first_search(value, node.left_node)
@@ -80,5 +78,6 @@ end
 
 t = Binary_Tree.new
 t.build_tree([2, 1, 3, 4, 5, 7, 7, 8, 9, 9, 23, 67, 324, 6345])
+#t.breadth_first_search(2)
 t.depth_first_search(2)
 t.dfs_rec(2)
