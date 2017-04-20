@@ -13,28 +13,41 @@ class Binary_Tree
 #Takes an array of data, turns it into binary tree of Node objects, in appropriate order
   def build_tree(data)
     @root = Node.new(data[0])
-    data.each do |element|
+    puts @root
+    data.each_with_index do |element, index|
+      if(index == 0)
+        next
+      end
+      print "Inside iterator"
       create_node(element)
     end
-
+    puts @root.value
+    data.each do |node|
+      puts "#{node}"
+    end
   end
 
   def create_node(element, node = @root)
     if(element < node.value) && (node.left_node == nil)
       node.left_node = Node.new(element)
       node.left_node.parent_node = node
+      puts "Left node created"
     elsif(element > node.value) && (node.right_node == nil)
       node.right_node = Node.new(element)
       node.right_node.parent_node = node
+      puts "Right node created"
     elsif(element < node.value) && (node.left_node != nil)
       new_node = node.left_node
       create_node(element, new_node)
+      puts "Left node occupied, trying again with left node"
     elsif(element > node.value) && (node.right_node != nil)
       new_node = node.right_node
       create_node(element, new_node)
+      puts "Right node occupied, trying again with right node"
     elsif(element == node.value) && (node.right_node != nil)
       new_node = node.right_node
       create_node(element, new_node)
+      puts "Element equal to current node value, trying again with right node"
     end
   end
 
@@ -79,5 +92,5 @@ end
 t = Binary_Tree.new
 t.build_tree([2, 1, 3, 4, 5, 7, 7, 8, 9, 9, 23, 67, 324, 6345])
 #t.breadth_first_search(2)
-t.depth_first_search(2)
-t.dfs_rec(2)
+#t.depth_first_search(2)
+#t.dfs_rec(2)
