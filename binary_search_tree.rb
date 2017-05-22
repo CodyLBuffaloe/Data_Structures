@@ -6,21 +6,26 @@ class Node
   end
 #returns value of Node instance
   def value
-    return @value
+    if(@value == nil)
+      puts "nil"
+    else
+      @value
+    end
   end
+
 end
 
 class Binary_Tree
 
-#Assigns root to 0th array value, then iterates all array values to assign them nodes in the tree
+#Assigns root the 0th array value, then iterates all array values to assign them nodes in the tree
   def build_tree(data)
     @root = Node.new(data[0])
-    puts @root.value
+
     data.each_with_index do |element, index|
       if(index == 0)
         next
       end
-      puts "Inside iterator"
+      puts "Passing into create_node"
       create_node(element)
     end
   end
@@ -28,26 +33,27 @@ class Binary_Tree
 #Assigns node to correct place in tree (parent or child position)
 #Uses @root if no argument is present for evaluation
   def create_node(element, node = @root)
+    puts "Entering create_node, the value of element is #{element}. The value of node is #{node.value}"
     if element < node.value && node.left_node == nil
+      puts "Element: #{element}. Comparing if element is less than root, left node empty"
+      puts "Node: #{node.value}, Left_node: #{node.left_node.class}"
       node.left_node = Node.new(element)
       node.left_node.parent_node = node
-      puts "Left node created"
-    elsif element > node.value && node.right_node == nil
+      puts "Left_node: #{node.left_node.value}, Parent_node: #{node.left_node.parent_node.value}"
+    elsif element >= node.value && node.right_node == nil
+      puts "Element: #{element}. Comparing if element is greater than or equal to root, right node empty"
+      puts "Node: #{node.value}, right_node: #{node.right_node.class}, left_node: #{node.left_node.class}"
       node.right_node = Node.new(element)
       node.right_node.parent_node = node
-      puts "Right node created"
+      puts "Right_node: #{node.right_node.value}, Parent_node: #{node.right_node.parent_node.value}"
     elsif element < node.value && node.left_node != nil
-      new_node = node.left_node
-      create_node(element, new_node)
-      puts "Left node occupied, trying again with left node"
-    elsif element > node.value && node.right_node != nil
-      new_node = node.right_node
-      create_node(element, new_node)
-      puts "Right node occupied, trying again with right node"
-    elsif element == node.value && node.right_node != nil
-      new_node = node.right_node
-      create_node(element, new_node)
-      puts "Element equal to current node value, trying again with right node"
+      puts "Element: #{element},Comparing if element is less than root, left node full"
+      puts "Node: #{node.value}, Left_node: #{node.left_node.class}, right_node: #{node.right_node.class}"
+      create_node(element, node.left_node)
+    elsif element >= node.value && node.right_node != nil
+      puts "Element: #{element}Comparing if element is greater than or equal to root, right node full"
+      puts "Node: #{node.value}, Right_node: #{node.right_node.class}, Left_node: #{node.left_node.class}"
+      create_node(element, node.right_node)
     end
   end
 =begin
